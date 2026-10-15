@@ -13,8 +13,13 @@ pop = pd.DataFrame({
     "Population": [731, 628],
 })
 
+import plotly.express as px
+
 st.subheader("Cuba population")
-st.bar_chart(pop, x="Year", y="Population")
+pop_fig = px.bar(pop, x="Year", y="Population")
+pop_fig.update_layout(bargap=0.7)
+pop_fig.update_xaxes(type="category")
+st.plotly_chart(pop_fig)
 
 # Corridor chart (SAMPLE DATA, replace with real FARS and NMDOT data)
 df = pd.DataFrame(
