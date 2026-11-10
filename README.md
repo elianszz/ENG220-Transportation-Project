@@ -22,9 +22,9 @@ To solve some transporation problems in Cuba, New Mexico is to help fix their de
 
 **Name:** Deaven Montano
 
-**Role:** Data Cleaning & Preprocessing
+**Role:** Lead Documentarian
 **Contribution:**
-- Clean the raw crash data into the CSV files used by the app.
+- Write the proposal, README, report, and slides.
 
 **Name:** Tyler Rhodes
 
@@ -33,17 +33,17 @@ To solve some transporation problems in Cuba, New Mexico is to help fix their de
 - Write the code for analysis of the cleaned data.
 - Produce the visualizations.
 
-**Name:** Elian Sanchez
+**Name:** Tysean Austin
 
 **Role:** Streamlit Application Developer
 **Contribution:**
 - Build and deploy the Streamlit app.
 
-**Name:** Tysean Austin
+**Name:** Elian Sanchez
 
-**Role:** GitHub Manager & Lead Documentarian
+**Role:** GitHub Manager & Data Cleaning & Preprocessing
 **Contribution:**
 - Manage the GitHub workflow (branches, commits, and merges).
-- Write the proposal, README, report, and slides.
+- Clean the raw crash data into the CSV files used by the app.
 
 **All members:** Help write and review the report and presentation.
