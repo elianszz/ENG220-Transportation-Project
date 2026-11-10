@@ -23,6 +23,7 @@ Elian Sanchez, Streamlit Application Developer: Built and deployed the Streamlit
 Tysean Austin, GitHub Manager & Lead Documentarian: Managed the repository workflow and wrote the proposal, README, report, and slides.
  
 All members helped write and review the report and presentation.
+
 ---
  
 ## Final Conclusion
