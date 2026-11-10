@@ -13,6 +13,7 @@ To solve some transporation problems in Cuba, New Mexico is to help fix their de
 ## Team Members
 
 **Name:** Brayan Calles (Prime Minister)
+
 **Role:** Lead Researcher & Data Gatherer
 **Contribution:**
 - Find and select the datasets for the project.
@@ -20,22 +21,26 @@ To solve some transporation problems in Cuba, New Mexico is to help fix their de
 - Keep the team on track.
 
 **Name:** Deaven Montano
+
 **Role:** Data Cleaning & Preprocessing
 **Contribution:**
 - Clean the raw crash data into the CSV files used by the app.
 
 **Name:** Tyler Rhodes
+
 **Role:** GIS & Spatial Analyst
 **Contribution:**
 - Write the code for analysis of the cleaned data.
 - Produce the visualizations.
 
 **Name:** Elian Sanchez
+
 **Role:** Streamlit Application Developer
 **Contribution:**
 - Build and deploy the Streamlit app.
 
 **Name:** Tysean Austin
+
 **Role:** GitHub Manager & Lead Documentarian
 **Contribution:**
 - Manage the GitHub workflow (branches, commits, and merges).
