@@ -130,14 +130,6 @@ with tab2:
         f"({100 * cu_a / cu_t:.1f}%). Sandoval County had {sa_a} out of {sa_t:,} "
         f"({100 * sa_a / sa_t:.1f}%)."
     )
-    st.info(
-        "How to read this: Cuba's share was higher than the county's in every year, "
-        "but Cuba had only 1 to 3 animal crashes a year, so one crash moves its bar a lot. "
-        "Sandoval County is mostly urban. Rio Rancho alone was about 64% of county crashes "
-        "from 2021 to 2025, and 87% of county crashes in 2025 were on urban roads. So this "
-        "compares a rural village with a mostly suburban county, and part of the gap may be "
-        "rural versus urban driving. The data does not say which road each crash was on."
-    )
 
 
 # ---------- Tab: US 550 wildlife corridor ----------
@@ -197,18 +189,6 @@ with tab_us550:
 
     st.subheader("Planned wildlife crossings (from the scoping report)")
     st.dataframe(structures, hide_index=True)
-
-    st.info(
-        "Read this carefully: (1) These counts only include crashes with elk and mule deer. "
-        "Other animals were left out of the report's tables. "
-        "(2) They are reported crashes only. The report says many wildlife crashes are never "
-        "reported and the real number on US 550 could be much higher. "
-        "(3) The report's introduction says 208 wildlife crashes from 2009 to 2022, while its "
-        "tables say 399 elk and deer crashes from 2008 to 2021. The report does not explain "
-        "the difference in what I read, so each number is labeled with its own years here. "
-        "(4) This corridor is north and west of Cuba village, so these crashes are not in the "
-        "village numbers on the other tabs."
-    )
 
 
 # ---------- Tab 3: About the data ----------
