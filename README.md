@@ -1,8 +1,10 @@
 # ENG220 Team 12: Transportation 
-To solve some transporation probelms in Cuba, New Mexico is to help fix their decaying roads, and help the lost of wildlife from car collisions. Our solutions are to help build funding for new roads so a fresh layer of asphalt and help fill in the spots that are sinking in. For the wildlife solution we can also build funding for land bridges in the most frequent areas this takes place.
+
+To solve some transporation problems in Cuba, New Mexico is to help fix their decaying roads, and help the lost of wildlife from car collisions. Our solutions are to help build funding for new roads so a fresh layer of asphalt and help fill in the spots that are sinking in. For the wildlife solution we can also build funding for land bridges in the most frequent areas this takes place.
+
 ---
 
-### Data Sources
+## Data Sources
 https://www.dot.nm.gov/projects/active-projects/us550wildlifeproject/
 
 - [NMDOT US 550 Wildlife Crossing Project and scoping report (July 2023)](https://www.dot.nm.gov/projects/active-projects/us550wildlifeproject/)
