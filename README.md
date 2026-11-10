@@ -25,5 +25,3 @@ Tysean Austin, GitHub Manager & Lead Documentarian: Managed the repository workf
 All members helped write and review the report and presentation.
 
 ---
- 
-## Final Conclusion
