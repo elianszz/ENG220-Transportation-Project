@@ -12,14 +12,28 @@ To solve some transporation problems in Cuba, New Mexico is to help fix their de
  
 ## Team Members
  
-Brayan Calles (Prime Minister), Lead Researcher & Data Gatherer: Found and selected the datasets, wrote the data justifications, and kept the team on track.
- 
-Deaven Montano, Data Cleaning & Preprocessing: Cleaned the raw crash data into the CSV files used by the app.
- 
-Tyler Rhodes, GIS & Spatial Analyst: Analyzed the crash data and produced the visualizations.
- 
-Elian Sanchez, Streamlit Application Developer: Built and deployed the Streamlit app.
- 
-Tysean Austin, GitHub Manager & Lead Documentarian: Managed the repository workflow and wrote the proposal, README, report, and slides.
- 
-All members helped write and review the report and presentation.
+**Name:** Brayan Calles (Prime Minister)  
+**Role:** Lead Researcher & Data Gatherer  
+**Contribution:**
+- Found and selected the datasets.
+- Wrote the data justifications.
+- Kept the team on track.
+**Name:** Deaven Montano  
+**Role:** Data Cleaning & Preprocessing  
+**Contribution:**
+- Cleaned the raw crash data into the CSV files used by the app.
+**Name:** Tyler Rhodes  
+**Role:** GIS & Spatial Analyst  
+**Contribution:**
+- Analyzed the crash data.
+- Produced the visualizations.
+**Name:** Elian Sanchez  
+**Role:** Streamlit Application Developer  
+**Contribution:**
+- Built and deployed the Streamlit app.
+**Name:** Tysean Austin  
+**Role:** GitHub Manager & Lead Documentarian  
+**Contribution:**
+- Managed the repository workflow (branches, commits, and merges).
+- Wrote the proposal, README, report, and slides.
+**All members:** Helped write and review the report and presentation.
