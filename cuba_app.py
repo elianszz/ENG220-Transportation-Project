@@ -10,7 +10,9 @@ DARK_RED = "#8E1111"
 MID_RED = "#CF5C5C"
 LIGHT_RED = "#EFADAD"
 LABEL_SIZE = 20  # size of the numbers on the charts
-AXIS_SIZE = 18  # size of the words on the charts (axis labels, legend)
+AXIS_SIZE = 18  # size of the words on the charts (axis labels)
+LEGEND_SIZE = 24  # size of the legend (the color key, like Elk and Mule deer)
+LEGEND = dict(font=dict(size=LEGEND_SIZE), title=dict(font=dict(size=LEGEND_SIZE)))
 
 st.set_page_config(page_title="Project Cuba Corridor", layout="wide")
 st.title("Project Cuba Corridor")
@@ -79,7 +81,7 @@ with tab1:
         color_discrete_sequence=[DARK_RED, MID_RED, LIGHT_RED],
     )
     fig1.update_xaxes(type="category")
-    fig1.update_layout(bargap=0.6, font_size=AXIS_SIZE)
+    fig1.update_layout(bargap=0.6, font_size=AXIS_SIZE, legend=LEGEND)
     for trace in fig1.data:
         trace.text = [f"<b>{int(v)}</b>" if v else "" for v in trace.y]
         trace.textposition = "inside"
@@ -163,7 +165,7 @@ with tab2:
         color_discrete_map={"Cuba village": DARK_RED, "Sandoval County": MID_RED},
     )
     fig3.update_xaxes(type="category")
-    fig3.update_layout(bargap=0.55, font_size=AXIS_SIZE)
+    fig3.update_layout(bargap=0.55, font_size=AXIS_SIZE, legend=LEGEND)
     fig3.update_traces(
         texttemplate="<b>%{y:.1f}</b>",
         textfont_size=LABEL_SIZE - 4,
@@ -208,7 +210,7 @@ with tab_us550:
         color_discrete_map={"Elk": DARK_RED, "Mule deer": MID_RED},
         text_auto=True,
     )
-    fig5.update_layout(bargap=0.6, font_size=AXIS_SIZE)
+    fig5.update_layout(bargap=0.6, font_size=AXIS_SIZE, legend=LEGEND)
     fig5.update_traces(
         texttemplate="<b>%{y}</b>",
         textfont=dict(size=LABEL_SIZE, color="white"),
