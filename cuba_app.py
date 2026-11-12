@@ -4,6 +4,11 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+# Chart colors: dark red, with lighter shades of the same red when a chart has more than one color.
+DARK_RED = "#8E1111"
+MID_RED = "#CF5C5C"
+LIGHT_RED = "#EFADAD"
+
 st.set_page_config(page_title="Project Cuba Corridor", layout="wide")
 st.title("Project Cuba Corridor")
 st.write(
@@ -68,6 +73,7 @@ with tab1:
         x="year",
         y=["fatal", "injury", "property_damage_only"],
         labels={"value": "Crashes", "year": "Year", "variable": "Severity"},
+        color_discrete_sequence=[DARK_RED, MID_RED, LIGHT_RED],
     )
     fig1.update_xaxes(type="category")
     fig1.update_layout(bargap=0.4)
@@ -86,7 +92,13 @@ with tab1:
     m = cuba_month.groupby("month", as_index=False)["crashes"].sum()
     m["month"] = pd.Categorical(m["month"], categories=months, ordered=True)
     m = m.sort_values("month")
-    fig2 = px.bar(m, x="month", y="crashes", labels={"month": "Month", "crashes": "Crashes"})
+    fig2 = px.bar(
+        m,
+        x="month",
+        y="crashes",
+        labels={"month": "Month", "crashes": "Crashes"},
+        color_discrete_sequence=[DARK_RED],
+    )
     fig2.update_layout(bargap=0.5)
     st.plotly_chart(fig2)
     st.caption(
@@ -118,6 +130,7 @@ with tab2:
         barmode="group",
         text_auto=".1f",
         labels={"percent": "Percent of all crashes", "year": "Year"},
+        color_discrete_map={"Cuba village": DARK_RED, "Sandoval County": MID_RED},
     )
     fig3.update_xaxes(type="category")
     fig3.update_layout(bargap=0.4)
@@ -150,7 +163,14 @@ with tab_us550:
         value_name="Crashes",
     )
     long["Animal"] = long["Animal"].map({"elk_crashes": "Elk", "deer_crashes": "Mule deer"})
-    fig5 = px.bar(long, x="label", y="Crashes", color="Animal", labels={"label": ""})
+    fig5 = px.bar(
+        long,
+        x="label",
+        y="Crashes",
+        color="Animal",
+        labels={"label": ""},
+        color_discrete_map={"Elk": DARK_RED, "Mule deer": MID_RED},
+    )
     fig5.update_layout(bargap=0.4)
     st.plotly_chart(fig5)
 
@@ -161,6 +181,7 @@ with tab_us550:
         y="crashes_per_mile",
         text_auto=".1f",
         labels={"label": "", "crashes_per_mile": "Reported crashes per mile, 2008 to 2021"},
+        color_discrete_sequence=[DARK_RED],
     )
     fig6.update_layout(bargap=0.5)
     st.plotly_chart(fig6)
@@ -179,7 +200,15 @@ with tab_us550:
         }
     )
     sp["Label"] = sp["Crashes"].astype(str) + " (" + (100 * sp["Crashes"] / sp["Crashes"].sum()).round(1).astype(str) + "%)"
-    fig7 = px.bar(sp, x="Animal", y="Crashes", text="Label")
+    fig7 = px.bar(
+        sp,
+        x="Animal",
+        y="Crashes",
+        text="Label",
+        color="Animal",
+        color_discrete_map={"Elk": DARK_RED, "Mule deer": MID_RED},
+    )
+    fig7.update_layout(showlegend=False)
     fig7.update_layout(bargap=0.6)
     st.plotly_chart(fig7)
     st.caption(
