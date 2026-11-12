@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import streamlit as st
 
 # Chart colors: dark red, with lighter shades of the same red when a chart has more than one color.
@@ -77,6 +78,21 @@ with tab1:
     )
     fig1.update_xaxes(type="category")
     fig1.update_layout(bargap=0.4)
+    for trace in fig1.data:
+        trace.text = [str(int(v)) if v else "" for v in trace.y]
+        trace.textposition = "inside"
+    fig1.add_trace(
+        go.Scatter(
+            x=cuba_year["year"],
+            y=cuba_year["total"],
+            mode="text",
+            text=cuba_year["total"].astype(int).astype(str),
+            textposition="top center",
+            showlegend=False,
+            hoverinfo="skip",
+        )
+    )
+    fig1.update_yaxes(range=[0, cuba_year["total"].max() * 1.15])
     st.plotly_chart(fig1)
     st.caption(
         f"Total crashes dropped from {int(cuba_year.total.iloc[0])} in 2016 "
@@ -98,8 +114,10 @@ with tab1:
         y="crashes",
         labels={"month": "Month", "crashes": "Crashes"},
         color_discrete_sequence=[DARK_RED],
+        text_auto=True,
     )
     fig2.update_layout(bargap=0.5)
+    fig2.update_traces(textposition="outside", cliponaxis=False)
     st.plotly_chart(fig2)
     st.caption(
         f"Only {int(m.crashes.sum())} crashes over five years, so this pattern is weak. "
@@ -134,6 +152,7 @@ with tab2:
     )
     fig3.update_xaxes(type="category")
     fig3.update_layout(bargap=0.4)
+    fig3.update_traces(textposition="outside", cliponaxis=False)
     st.plotly_chart(fig3)
 
     cu_a, cu_t = int(cu.crashes.sum()), int(cu.total.sum())
@@ -170,8 +189,21 @@ with tab_us550:
         color="Animal",
         labels={"label": ""},
         color_discrete_map={"Elk": DARK_RED, "Mule deer": MID_RED},
+        text_auto=True,
     )
     fig5.update_layout(bargap=0.4)
+    fig5.add_trace(
+        go.Scatter(
+            x=ph["label"],
+            y=ph["total_crashes"],
+            mode="text",
+            text=ph["total_crashes"].astype(int).astype(str),
+            textposition="top center",
+            showlegend=False,
+            hoverinfo="skip",
+        )
+    )
+    fig5.update_yaxes(range=[0, ph["total_crashes"].max() * 1.15])
     st.plotly_chart(fig5)
 
     st.subheader("Crashes per mile in each phase")
@@ -184,6 +216,7 @@ with tab_us550:
         color_discrete_sequence=[DARK_RED],
     )
     fig6.update_layout(bargap=0.5)
+    fig6.update_traces(textposition="outside", cliponaxis=False)
     st.plotly_chart(fig6)
     st.caption(
         f"Total: {int(ph.total_crashes.sum())} crashes over {ph.miles.sum():.2f} miles "
@@ -210,6 +243,7 @@ with tab_us550:
     )
     fig7.update_layout(showlegend=False)
     fig7.update_layout(bargap=0.6)
+    fig7.update_traces(textposition="outside", cliponaxis=False)
     st.plotly_chart(fig7)
     st.caption(
         "Reported elk and mule deer crashes, MP 64.93 to 80.64, 2008 to 2021. "
