@@ -82,13 +82,6 @@ with tab1:
     )
     fig1.update_xaxes(type="category")
     fig1.update_layout(bargap=0.6, font_size=AXIS_SIZE, legend=LEGEND)
-    for trace in fig1.data:
-        trace.text = [f"<b>{int(v)}</b>" if v else "" for v in trace.y]
-        trace.textposition = "inside"
-        trace.textfont = dict(
-            size=LABEL_SIZE,
-            color="#4A0A0A" if trace.name == "property_damage_only" else "white",
-        )
     fig1.add_trace(
         go.Scatter(
             x=cuba_year["year"],
