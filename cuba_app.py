@@ -96,10 +96,11 @@ with tab1:
     )
     fig1.update_yaxes(range=[0, cuba_year["total"].max() * 1.2])
     st.plotly_chart(fig1)
+    peak = cuba_year.loc[cuba_year.total.idxmax()]
     st.caption(
-        f"Total crashes dropped from {int(cuba_year.total.iloc[0])} in 2016 "
-        f"to {int(cuba_year.total.iloc[-1])} in 2025. Numbers are small, so one crash "
-        "can change the trend."
+        f"{int(cuba_year.total.sum())} crashes in total, {int(cuba_year.fatal.sum())} fatal. "
+        f"{int(cuba_year.total.iloc[0])} in 2016, {int(peak.total)} in {int(peak.year)} (the most), "
+        f"{int(cuba_year.total.iloc[-1])} in 2025."
     )
 
     st.subheader("Cuba crashes by month, 2021 to 2025 combined")
@@ -126,9 +127,11 @@ with tab1:
         cliponaxis=False,
     )
     st.plotly_chart(fig2)
+    top = m.sort_values("crashes", ascending=False).head(2)
     st.caption(
-        f"Only {int(m.crashes.sum())} crashes over five years, so this pattern is weak. "
-        "One crash can move a bar. Treat it as a rough look, not a seasonal trend."
+        f"{int(m.crashes.sum())} crashes in total. "
+        f"Most in {top.iloc[0]['month']} ({int(top.iloc[0]['crashes'])}) "
+        f"and {top.iloc[1]['month']} ({int(top.iloc[1]['crashes'])})."
     )
 
 # ---------- Tab 2: Animal crashes ----------
@@ -258,8 +261,7 @@ with tab_us550:
     st.caption(
         f"Total: {int(ph.total_crashes.sum())} crashes over {ph.miles.sum():.2f} miles "
         f"({int(ph.elk_crashes.sum())} elk, {int(ph.deer_crashes.sum())} mule deer). "
-        "Crashes per mile are close to even across the four phases, about 24 to 27 per mile, "
-        "so the whole stretch is a hotspot and not one single spot."
+        f"{ph.crashes_per_mile.min():.0f} to {ph.crashes_per_mile.max():.0f} crashes per mile in every phase."
     )
 
     st.subheader("Which animals: elk vs mule deer")
@@ -287,10 +289,7 @@ with tab_us550:
         cliponaxis=False,
     )
     st.plotly_chart(fig7)
-    st.caption(
-        "Reported elk and mule deer crashes, MP 64.93 to 80.64, 2008 to 2021. "
-        "Other animals such as bears or cougars are not in these tables."
-    )
+    st.caption("Reported elk and mule deer crashes, MP 64.93 to 80.64, 2008 to 2021.")
 
     st.subheader("Planned wildlife crossings (from the scoping report)")
     st.dataframe(structures, hide_index=True)
