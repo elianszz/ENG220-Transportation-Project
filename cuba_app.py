@@ -17,9 +17,9 @@ LEGEND = dict(font=dict(size=LEGEND_SIZE), title=dict(font=dict(size=LEGEND_SIZE
 st.set_page_config(page_title="Project Cuba Corridor", layout="wide")
 st.title("Project Cuba Corridor")
 st.write(
-    "Crash safety and commuting in Cuba, NM and Sandoval County. "
-    "Sources: UNM Geospatial and Population Studies (UNM-GPS) crash reports for NMDOT, "
-    "NMDOT's US 550 scoping report, and U.S. Census data."
+    "Crash safety in Cuba, NM and Sandoval County. "
+    "Sources: UNM Geospatial and Population Studies (UNM-GPS) crash reports for NMDOT "
+    "and NMDOT's US 550 scoping report."
 )
 
 
@@ -66,8 +66,8 @@ cuba_month = load("cuba_crashes_by_month.csv")
 sand_year = load("sandoval_crashes_by_year.csv")
 sand_event = load("sandoval_first_harmful_event.csv")
 
-tab1, tab2, tab_us550, tab_census, tab3 = st.tabs(
-    ["Cuba crashes", "Animal crashes", "US 550 wildlife corridor", "Commuting and income", "About the data"]
+tab1, tab2, tab_us550, tab3 = st.tabs(
+    ["Cuba crashes", "Animal crashes", "US 550 wildlife corridor", "About the data"]
 )
 
 # ---------- Tab 1: Cuba crashes ----------
@@ -282,144 +282,6 @@ with tab_us550:
     st.dataframe(structures, hide_index=True)
 
 
-# ---------- Tab: Commuting and income (Census) ----------
-with tab_census:
-    census = load("cuba_census_comparison.csv")
-    modes = load("commute_mode_comparison.csv")
-
-    st.subheader("How workers in Cuba get to work, 2024")
-    cuba_modes = modes[modes.place == "Cuba village"].copy()
-    cuba_modes["label"] = (
-        cuba_modes["percent"].map("{:.1f}%".format)
-        + " (±"
-        + cuba_modes["margin_of_error"].map("{:.1f}".format)
-        + ")"
-    )
-    fig8 = px.bar(
-        cuba_modes,
-        x="percent",
-        y="mode",
-        orientation="h",
-        text="label",
-        labels={"percent": "Percent of workers", "mode": ""},
-        color_discrete_sequence=[DARK_RED],
-    )
-    fig8.update_yaxes(autorange="reversed")
-    fig8.update_xaxes(range=[0, 108])
-    fig8.update_layout(bargap=0.6, font_size=AXIS_SIZE)
-    fig8.update_traces(
-        texttemplate="<b>%{text}</b>",
-        textfont_size=LABEL_SIZE,
-        textposition="outside",
-        cliponaxis=False,
-    )
-    st.plotly_chart(fig8)
-    st.caption(
-        "The number in parentheses is the margin of error, in percentage points. Cuba has only "
-        "about 228 workers (give or take 94), so every share is rough. The survey counted no "
-        "workers in Cuba using public transportation. 'Walked, biked, or other' includes taxis. "
-        "On average, households in Cuba have 3 cars, and 6.8% of workers commute more than "
-        "90 minutes (Data USA, ACS 2024). Source: Census Reporter table B08006, ACS 2024 5-year."
-    )
-
-    st.subheader("Drove alone and worked from home: Cuba, county, and state")
-    shown_places = ["Cuba village", "Sandoval County", "New Mexico"]
-    shown_modes = ["Drove alone", "Worked from home"]
-    both_modes = modes[modes.place.isin(shown_places) & modes["mode"].isin(shown_modes)]
-    fig9 = px.bar(
-        both_modes,
-        x="mode",
-        y="percent",
-        color="place",
-        barmode="group",
-        error_y="margin_of_error",
-        category_orders={"mode": shown_modes, "place": shown_places},
-        color_discrete_map={
-            "Cuba village": DARK_RED,
-            "Sandoval County": MID_RED,
-            "New Mexico": LIGHT_RED,
-        },
-        labels={"percent": "Percent of workers", "mode": "", "place": ""},
-    )
-    fig9.update_layout(bargap=0.4, font_size=AXIS_SIZE, legend=LEGEND)
-    fig9.update_traces(
-        texttemplate="<b>%{y:.1f}%</b>",
-        textposition="inside",
-        insidetextanchor="start",
-        error_y=dict(color="#222222", thickness=2, width=8),
-    )
-    for trace in fig9.data:
-        trace.textfont = dict(
-            size=LABEL_SIZE - 2,
-            color="#4A0A0A" if trace.name == "New Mexico" else "white",
-        )
-    st.plotly_chart(fig9)
-
-    def share(place, mode_name):
-        r = both_modes[(both_modes.place == place) & (both_modes["mode"] == mode_name)].iloc[0]
-        return f"{r.percent:.1f}% (give or take {r.margin_of_error:.1f})"
-
-    st.caption(
-        f"Drove alone: Cuba {share('Cuba village', 'Drove alone')}, "
-        f"Sandoval County {share('Sandoval County', 'Drove alone')}, "
-        f"New Mexico {share('New Mexico', 'Drove alone')}. "
-        "The black lines show the margin of error. Cuba's range is wide and overlaps the "
-        "county and the state, so we cannot say Cuba drives alone more than they do. "
-        "Source: Census Reporter table B08006, ACS 2024 5-year."
-    )
-
-    place_colors = {
-        "Cuba village": DARK_RED,
-        "Albuquerque metro area": MID_RED,
-        "New Mexico": MID_RED,
-        "United States": MID_RED,
-    }
-
-    def compare_chart(measure, title, label_format):
-        d = census[census.measure == measure]
-        fig = px.bar(
-            d,
-            x="place",
-            y="value",
-            error_y="margin_of_error",
-            color="place",
-            color_discrete_map=place_colors,
-            labels={"place": "", "value": title},
-        )
-        fig.update_layout(bargap=0.6, font_size=AXIS_SIZE, showlegend=False)
-        fig.update_traces(
-            texttemplate="<b>" + label_format + "</b>",
-            textfont=dict(size=LABEL_SIZE, color="white"),
-            textposition="inside",
-            insidetextanchor="start",
-            error_y=dict(color="#222222", thickness=2, width=8),
-        )
-        return fig
-
-    st.subheader("Average commute time to work (minutes)")
-    st.plotly_chart(compare_chart("Mean travel time to work (minutes)", "Minutes", "%{y:.1f}"))
-    st.caption(
-        "Cuba's average is 29 minutes, but the margin of error is 20.9 minutes (the black line), "
-        "so the true number could be much lower or higher. We cannot say for sure that Cuba's "
-        "commute is longer than the state's. Source: Census Reporter, ACS 2024 5-year."
-    )
-
-    st.subheader("Poverty rate (percent of people)")
-    st.plotly_chart(compare_chart("Poverty rate (percent)", "Percent", "%{y:.1f}%"))
-    st.caption(
-        "Cuba's rate is 22.5%, but the margin of error is 19.3 points, so this is a very rough "
-        "number. Source: Census Reporter, ACS 2024 5-year."
-    )
-
-    st.subheader("Income per person (dollars per year)")
-    st.plotly_chart(compare_chart("Per capita income (dollars)", "Dollars", "$%{y:,.0f}"))
-    st.caption(
-        "Cuba's income per person is $24,855, give or take $8,393. Even the top of that range "
-        "is below the state, the metro area, and the country, so Cuba's income per person is "
-        "likely lower. Source: Census Reporter, ACS 2024 5-year."
-    )
-
-
 # ---------- Tab 3: About the data ----------
 with tab3:
     st.subheader("Sources")
@@ -430,18 +292,11 @@ with tab3:
         "https://www.dot.nm.gov/projects/active-projects/us550wildlifeproject/\n"
         "- NMDOT, US-550 MP 64.93 to MP 80.64 WVC Mitigation Scoping Report, July 2023 "
         "(crash counts by phase and planned crossing locations), linked from the project page above.\n"
-        "- Census Reporter, table B08006 (Sex of Workers by Means of Transportation to Work), "
-        "ACS 2024 5-year, for Cuba, Sandoval County, New Mexico, and the US: https://censusreporter.org\n"
-        "- Census Reporter, Cuba village profile (ACS 2024 5-year): "
-        "http://censusreporter.org/profiles/16000US3519150-cuba-nm/\n"
-        "- Data USA, Cuba, NM (ACS 2024): https://datausa.io/profile/geo/cuba-nm"
     )
     st.subheader("Limitations")
     st.markdown(
         "- Cuba numbers cover the village only, not US 550 north of town.\n"
         "- Counts are small, so trends can change with one or two crashes.\n"
-        "- Census numbers for a village of about 460 people have large margins of error, so "
-        "treat them as rough.\n"
         "- The county comparison is mostly Rio Rancho and other urban roads, so it is a rough "
         "baseline, not a like-for-like comparison.\n"
         "- The data covers reported crashes with a death, an injury, or at least $500 in damage.\n"
