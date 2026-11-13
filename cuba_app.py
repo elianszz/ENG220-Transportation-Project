@@ -157,11 +157,25 @@ with tab2:
         labels={"percent": "Percent of all crashes", "year": "Year"},
         color_discrete_map={"Cuba village": DARK_RED, "Sandoval County": MID_RED},
     )
-    fig3.update_xaxes(type="category")
-    fig3.update_layout(bargap=0.55, font_size=AXIS_SIZE, legend=LEGEND)
+    # This chart has extra large letters and numbers so it is easy to read.
+    fig3.update_xaxes(type="category", tickfont_size=24, title_font_size=26)
+    fig3.update_yaxes(
+        tickfont_size=22,
+        title_font_size=26,
+        range=[0, both["percent"].max() * 1.2],
+    )
+    fig3.update_layout(
+        bargap=0.3,
+        bargroupgap=0.05,
+        height=560,
+        legend=dict(
+            font=dict(size=28),
+            title=dict(font=dict(size=28)),
+        ),
+    )
     fig3.update_traces(
         texttemplate="<b>%{y:.1f}</b>",
-        textfont_size=LABEL_SIZE - 4,
+        textfont_size=24,
         textposition="outside",
         cliponaxis=False,
     )
