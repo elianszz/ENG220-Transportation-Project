@@ -203,7 +203,7 @@ with tab_us550:
         "NMDOT's scoping report split the wildlife hotspot (MP 64.93 to MP 80.64) into "
         "four building phases. These are the reported crashes in each phase."
     )
-    ph["label"] = ph["phase"] + " (" + ph["mileposts"] + ")"
+    ph["label"] = ph["phase"] + "<br>" + ph["mileposts"]
     long = ph.melt(
         id_vars=["label"],
         value_vars=["elk_crashes", "deer_crashes"],
@@ -220,10 +220,16 @@ with tab_us550:
         color_discrete_map={"Elk": DARK_RED, "Mule deer": MID_RED},
         text_auto=True,
     )
-    fig5.update_layout(bargap=0.6, font_size=AXIS_SIZE, legend=LEGEND)
+    fig5.update_layout(
+        bargap=0.45,
+        height=580,
+        legend=dict(font=dict(size=28), title=dict(font=dict(size=28))),
+    )
+    fig5.update_xaxes(tickfont_size=22)
+    fig5.update_yaxes(tickfont_size=22, title_font_size=26)
     fig5.update_traces(
         texttemplate="<b>%{y}</b>",
-        textfont=dict(size=LABEL_SIZE, color="white"),
+        textfont=dict(size=24, color="white"),
         textposition="inside",
     )
     fig5.add_trace(
@@ -232,7 +238,7 @@ with tab_us550:
             y=ph["total_crashes"],
             mode="text",
             text="<b>" + ph["total_crashes"].astype(int).astype(str) + "</b>",
-            textfont=dict(size=LABEL_SIZE + 2),
+            textfont=dict(size=26),
             textposition="top center",
             showlegend=False,
             hoverinfo="skip",
@@ -250,10 +256,12 @@ with tab_us550:
         labels={"label": "", "crashes_per_mile": "Reported crashes per mile, 2008 to 2021"},
         color_discrete_sequence=[DARK_RED],
     )
-    fig6.update_layout(bargap=0.7, font_size=AXIS_SIZE)
+    fig6.update_layout(bargap=0.55, height=540)
+    fig6.update_xaxes(tickfont_size=22)
+    fig6.update_yaxes(tickfont_size=22, title_font_size=24)
     fig6.update_traces(
         texttemplate="<b>%{y:.1f}</b>",
-        textfont_size=LABEL_SIZE,
+        textfont_size=26,
         textposition="outside",
         cliponaxis=False,
     )
