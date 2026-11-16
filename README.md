@@ -1,7 +1,6 @@
 # ENG220 Team 12: Transportation 
 
-To solve some transporation problems in Cuba, New Mexico is to help fix their decaying roads, and help the lost of wildlife from car collisions. Our solutions are to help build funding for new roads so a fresh layer of asphalt and help fill in the spots that are sinking in. For the wildlife solution we can also build funding for land bridges in the most frequent areas this takes place.
-
+Transportation in Cuba, New Mexico, is currently affected by aging, uneven roads and a high number of collisions between vehicles and wildlife. Using local crash reports and roadway studies, our team is analyzing where the most dangerous spots are and how to improve them. Our plan focuses on getting funding to fix sinking sections of the road, lay down new asphalt for smoother driving, and build dedicated wildlife crossings that protect both drivers and local animals.
 ---
 
 ## Data Sources
